@@ -1,0 +1,49 @@
+version: '3.7'
+services:
+
+  web:
+    image: nginx:alpine
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./api/auth/:/var/www/auth
+    networks:
+      - s_net
+
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "33091:3306"
+    environment:
+      MYSQL_DATABASE: base
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_NAME: mysql
+      SERVICE_TAGS: dev
+    networks:
+      - s_net
+
+  auth:
+    build:
+      context: api/auth
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: auth
+      SERVICE_TAGS: dev
+    working_dir: /var/www/auth
+    volumes:
+      - ./api/auth/:/var/www/auth
+    networks:
+      - s_net
+
+networks:
+  s_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "173.18.0.1/24"
