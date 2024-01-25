@@ -1,5 +1,4 @@
 /.idea
 api/auth
 api/redis
-/front/*
 docker/mysql
