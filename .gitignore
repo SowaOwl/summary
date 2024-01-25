@@ -1,3 +1,5 @@
 /.idea
-/api/*
+api/auth
+api/redis
 /front/*
+docker/mysql
