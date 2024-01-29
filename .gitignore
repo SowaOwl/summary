@@ -1,4 +1,5 @@
 /.idea
 api/auth
 api/redis
+api/fmanager
 docker/mysql

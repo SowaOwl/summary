@@ -6,8 +6,10 @@ services:
     tty: true
     ports:
       - "8050:8050"
+      - "8051:8051"
     volumes:
       - ./api/auth/:/var/www/auth
+      - ./api/fmanager/:/var/www/fmanager
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./docker/nginx/web/:/etc/nginx/conf.d/
     networks:
@@ -45,6 +47,20 @@ services:
     networks:
       - s_net
 
+  fmanager:
+    build:
+      context: api/fmanager
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: fmanager
+      SERVICE_TAGS: dev
+    working_dir: /var/www/fmanager
+    volumes:
+      - ./api/fmanager/:/var/www/fmanager
+    networks:
+      - s_net
 
 networks:
   s_net:
