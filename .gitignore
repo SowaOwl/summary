@@ -2,4 +2,5 @@
 api/auth
 api/redis
 api/fmanager
+api/bid
 docker/mysql
