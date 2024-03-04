@@ -79,9 +79,23 @@ services:
     networks:
       - s_net
 
+  summary_front:
+    build:
+      context: front/summary_front
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./front/summary_front/:/app
+    tty: true
+    ports:
+      - "8080:80"
+    networks:
+      - s_net
+
 networks:
   s_net:
     driver: bridge
     ipam:
       config:
-        - subnet: "173.18.0.1/24"
+        - subnet: "173.18.0.0/24"
