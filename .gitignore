@@ -3,4 +3,5 @@ api/auth
 api/redis
 api/fmanager
 api/bid
+front/summary_front
 docker/mysql
